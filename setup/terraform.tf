@@ -1,4 +1,4 @@
-resource "tfe_workspace" "BJTxyQtNoIXRP" {
-  name         = "workspace-run-30330"
+resource "tfe_workspace" "alpha" {
+  name         = "workspace-run-1"
   organization = "popa-org"
 }
