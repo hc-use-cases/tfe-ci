@@ -3,7 +3,7 @@ terraform {
     organization = "popa-org"
 
     workspaces {
-      name = "workspace-run-5779"
+      prefix = "workspace-run-"
     }
   }
 }
