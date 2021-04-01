@@ -43,6 +43,7 @@ jobs:
       - name: Create workspace
         run: |
           cd setup/
+          sed -i "s/alpha/${STRING}/g" terraform.tf
           sed -i "s/1/${random}/g" terraform.tf
           cat terraform.tf
       - name: Setup Terraform
