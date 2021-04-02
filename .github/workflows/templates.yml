@@ -28,7 +28,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          random="${RANDOM:4}"
+          random=$RANDOM
           STRING=$(tr -dc A-Za-z </dev/urandom | head -c 13 ; echo '')
           curl https://raw.githubusercontent.com/hc-use-cases/tfe-ci-templates/main/resource.tf -o resource_${random}.tf
           sed -i "s/1/${random}/g" resource_${random}.tf
