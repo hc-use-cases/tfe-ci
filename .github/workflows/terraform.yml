@@ -36,7 +36,8 @@ jobs:
       
       - name: Terraform Init
         run: |
-          echo $SOME
+          echo ${random}
+          echo ${STRING}
           terraform init
 
       - name: Terraform Validate
