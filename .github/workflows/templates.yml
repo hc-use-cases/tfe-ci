@@ -34,7 +34,7 @@ jobs:
           random=$RANDOM
           STRING=$(tr -dc A-Za-z </dev/urandom | head -c 13 ; echo '')
           curl https://raw.githubusercontent.com/hc-use-cases/tfe-ci-templates/main/resource.tf -o resource_${random}.tf
-          sed -i "s/1/${random}/g" resource_${random}.tf
+          sed -i "s/1/2/g" resource_${random}.tf
           sed -i "s/alpha/${STRING}/g" resource_${random}.tf
       - name: Commit changes
         uses: EndBug/add-and-commit@v7
