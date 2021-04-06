@@ -24,12 +24,14 @@ jobs:
         id: workspace
         run: |
           cd setup/
+          random=$RANDOM
+          STRING=$(tr -dc A-Za-z </dev/urandom | head -c 13 ; echo '')
+          
+          echo '::set-output name=random::${random}'
+          echo '::set-output name=STRING::${STRING}'
 
-          echo '::set-output name=random::$RANDOM'
-          echo '::set-output name=STRING::$(tr -dc A-Za-z </dev/urandom | head -c 13 ; echo '')'
-
-          sed -i "s/alpha/${{ steps.workspace.outputs.STRING }}/g" terraform.tf
-          sed -i "s/1/${{ steps.workspace.outputs.random }}/g" terraform.tf
+          sed -i "s/alpha/${STRING}/g" terraform.tf
+          sed -i "s/1/${random}/g" terraform.tf
           cat terraform.tf
           ls -ltr
           terraform init
@@ -40,8 +42,8 @@ jobs:
       - name: Terraform Init
         run: |
           ls -l
-          echo ${random}
-          echo ${STRING}
+          echo ${{ steps.workspace.outputs.random }}"
+          echo ${{ steps.workspace.outputs.STRING }}"
           terraform init
 
       - name: Terraform Validate
