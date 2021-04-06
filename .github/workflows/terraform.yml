@@ -26,9 +26,9 @@ jobs:
           cd setup/
           random=$RANDOM
           STRING=$(tr -dc A-Za-z </dev/urandom | head -c 13 ; echo '')
-          
-          echo '::set-output name=random::${random}'
-          echo '::set-output name=STRING::${STRING}'
+           
+          echo "random=${random}" >> $GITHUB_ENV 
+          echo "STRING=${STRING}" >> $GITHUB_ENV 
 
           sed -i "s/alpha/${STRING}/g" terraform.tf
           sed -i "s/1/${random}/g" terraform.tf
@@ -42,10 +42,10 @@ jobs:
       - name: Terraform Init
         run: |
           ls -l
-          echo "${{ steps.workspace.outputs.random }}"
-          echo "${{ steps.workspace.outputs.STRING }}"
+          echo "${{ env.random }}"
+          echo "${{ env.STRING }}"
           terraform init
-          terraform select workspaces "${{ steps.workspace.outputs.random }}"
+          terraform select workspaces "${{ env.random }}"
 
       - name: Terraform Validate
         run: terraform validate
