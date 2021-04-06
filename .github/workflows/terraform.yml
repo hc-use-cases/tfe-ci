@@ -39,20 +39,14 @@ jobs:
           terraform fmt -check 
           terraform apply -auto-approve
       
-      - name: Terraform Init
+      - name: Terraform Execute
         run: |
           ls -l
           echo "${{ env.random }}"
           echo "${{ env.STRING }}"
           terraform init
-          terraform select workspaces "${{ env.random }}"
-
-      - name: Terraform Validate
-        run: terraform validate
-
-      # Checks that all Terraform configuration files adhere to a canonical format
-      - name: Terraform Format
-        run: terraform fmt -check          
-        
-      - name: Terraform Apply
-        run: terraform apply -auto-approve
+          terraform validate
+          terraform fmt -check
+          terraform workspace list
+          terraform workspace select "${{ env.random }}"
+          terraform apply --auto-approve
