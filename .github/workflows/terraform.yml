@@ -23,10 +23,12 @@ jobs:
       - name: Create workspace
         run: |
           cd setup/
-          random=$RANDOM
-          STRING=$(tr -dc A-Za-z </dev/urandom | head -c 13 ; echo '')
+          export RANDOM=$RANDOM
+          export STRING=$(tr -dc A-Za-z </dev/urandom | head -c 13 ; echo '')
+          echo "::set-env name=RANDOM::$RANDOM"
+          echo "::set-env name=STRING::$STRING"
           sed -i "s/alpha/${STRING}/g" terraform.tf
-          sed -i "s/1/${random}/g" terraform.tf
+          sed -i "s/1/${RANDOM}/g" terraform.tf
           cat terraform.tf
           ls -ltr
           terraform init
@@ -37,7 +39,7 @@ jobs:
       - name: Terraform Init
         run: |
           ls -l
-          echo ${random}
+          echo ${RANDOM}
           echo ${STRING}
           terraform init
 
