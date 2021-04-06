@@ -39,14 +39,17 @@ jobs:
           terraform fmt -check 
           terraform apply -auto-approve
       
-      - name: Terraform Execute
+      - name: Terraform - select default workspace
         run: |
-          ls -l
-          echo "${{ env.random }}"
-          echo "${{ env.STRING }}"
-          terraform init
-          terraform validate
-          terraform fmt -check
-          terraform workspace list
-          terraform workspace select "${{ env.random }}"
-          terraform apply --auto-approve
+          mkdir .terraform/
+          touch .terraform/environment
+          echo "${{ env.random }}" > .terraform/environment
+      - name: Terraform - init 
+        run: terraform init
+      - name: Terraform - validate 
+        run: terraform validate
+      - name: Terraform - fmt
+        run: terraform fmt -check
+      - name: Terraform - apply 
+        run: terraform apply --auto-approve
+
