@@ -36,6 +36,7 @@ jobs:
       
       - name: Terraform Init
         run: |
+          ls -l
           echo ${random}
           echo ${STRING}
           terraform init
