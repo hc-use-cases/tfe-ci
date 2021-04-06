@@ -42,8 +42,8 @@ jobs:
       - name: Terraform Init
         run: |
           ls -l
-          echo ${{ steps.workspace.outputs.random }}"
-          echo ${{ steps.workspace.outputs.STRING }}"
+          echo "${{ steps.workspace.outputs.random }}"
+          echo "${{ steps.workspace.outputs.STRING }}"
           terraform init
 
       - name: Terraform Validate
