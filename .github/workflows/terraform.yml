@@ -21,14 +21,16 @@ jobs:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
       
       - name: Create workspace
+        id: workspace
         run: |
           cd setup/
-          export RANDOM=$RANDOM
-          export STRING=$(tr -dc A-Za-z </dev/urandom | head -c 13 ; echo '')
-          echo "::set-env name=RANDOM::$RANDOM"
-          echo "::set-env name=STRING::$STRING"
+          // export random=$RANDOM
+          // export STRING=$(tr -dc A-Za-z </dev/urandom | head -c 13 ; echo '')
+          echo '::set-output name=random::$RANDOM'
+          echo '::set-output name=STRING::$(tr -dc A-Za-z </dev/urandom | head -c 13 ; echo '')'
+
           sed -i "s/alpha/${STRING}/g" terraform.tf
-          sed -i "s/1/${RANDOM}/g" terraform.tf
+          sed -i "s/1/${random}/g" terraform.tf
           cat terraform.tf
           ls -ltr
           terraform init
@@ -39,7 +41,7 @@ jobs:
       - name: Terraform Init
         run: |
           ls -l
-          echo ${RANDOM}
+          echo ${random}
           echo ${STRING}
           terraform init
 
